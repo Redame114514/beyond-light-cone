@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>光锥之外</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="masthead">
+        <div>
+          <p class="eyebrow">Beyond the Light Cone</p>
+          <h1><span class="title-main">光锥之外</span></h1>
+          <p class="subtitle">先确定画面结构，再生成后人类巨构、微小人物与世界边界感之间相互约束的图像提示词。</p>
+        </div>
+        <div class="horizon-mark" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <nav class="step-rail" aria-label="构图工作流导航">
+          <p class="section-kicker">Build Steps</p>
+          <a href="#workflowDetails"><span>00</span><strong>使用说明</strong></a>
+          <a href="#section-composition"><span>01</span><strong>画面结构</strong></a>
+          <a href="#section-structure"><span>02</span><strong>巨构主体</strong></a>
+          <a href="#section-scene"><span>03</span><strong>场景基底</strong></a>
+          <a href="#section-figure"><span>04</span><strong>人物与尺度</strong></a>
+          <a href="#section-light"><span>05</span><strong>光线与情绪</strong></a>
+          <a href="#section-output"><span>06</span><strong>输出</strong></a>
+        </nav>
+
+        <section class="panel control-panel" aria-label="巨构构图控制台">
+          <div class="panel-heading">
+            <p class="section-kicker">Composition Console</p>
+            <h2>控制面板</h2>
+          </div>
+
+          <details id="workflowDetails" class="workflow-box" open>
+            <summary>使用说明 / Workflow</summary>
+            <ol>
+              <li><strong>选比例</strong><span>确定画幅与基础张力。</span></li>
+              <li><strong>定构图</strong><span>让位置、路径和人物互相约束。</span></li>
+              <li><strong>塑巨构</strong><span>选择主体体块与画面重量。</span></li>
+              <li><strong>铺场景</strong><span>限定基底、质感、人物和光线。</span></li>
+              <li><strong>取文本</strong><span>复制、导出或生成变体。</span></li>
+            </ol>
+          </details>
+
+          <form id="promptForm" class="form-grid">
+            <div id="section-composition" class="form-section full" data-step="01"><span>画面结构</span></div>
+
+            <label class="field">
+              <span class="label-row">画面比例 <button class="mini-edit" type="button" data-vocab="aspectRatios">编辑</button></span>
+              <select id="aspectRatio"></select>
+            </label>
+
+            <label class="field">
+              <span>输出语言</span>
+              <select id="language">
+                <option value="zh">中文</option>
+                <option value="en">English</option>
+              </select>
+            </label>
+
+            <label class="field full">
+              <span class="label-row">构图方案 <button class="mini-edit" type="button" data-vocab="compositionSchemes">编辑</button></span>
+              <select id="compositionScheme"></select>
+            </label>
+
+            <div id="constraintHint" class="constraint-hint full"></div>
+
+            <label class="field full">
+              <span class="label-row">巨构位置 <button class="mini-edit" type="button" data-vocab="structurePositions">编辑</button></span>
+              <select id="structurePosition"></select>
+            </label>
+
+            <label class="field full">
+              <span class="label-row">路径 / 引导线 <button class="mini-edit" type="button" data-vocab="leadingLines">编辑</button></span>
+              <select id="leadingLine"></select>
+            </label>
+
+            <label class="field full">
+              <span class="label-row">人物位置 <button class="mini-edit" type="button" data-vocab="figurePlacements">编辑</button></span>
+              <select id="figurePlacement"></select>
+            </label>
+
+            <div id="section-structure" class="form-section full" data-step="02"><span>巨构主体</span></div>
+
+            <label class="field full">
+              <span class="label-row">巨构类型 <button class="mini-edit" type="button" data-vocab="megastructureTypes">编辑</button></span>
+              <select id="megastructureType"></select>
+            </label>
+
+            <label class="field range-field">
+              <span>巨构占比 <output id="megastructureShareValue">75%</output></span>
+              <input id="megastructureShare" type="range" min="45" max="92" value="75" />
+            </label>
+
+            <label class="field range-field">
+              <span>地表 / 场景占比 <output id="groundShareValue">18%</output></span>
+              <input id="groundShare" type="range" min="5" max="45" value="18" />
+            </label>
+
+            <p id="figureShareHint" class="micro-copy full"></p>
+
+            <div id="section-scene" class="form-section full" data-step="03"><span>场景基底</span></div>
+
+            <label class="field full">
+              <span class="label-row">场景基底 <button class="mini-edit" type="button" data-vocab="sceneBases">编辑</button></span>
+              <select id="sceneBase"></select>
+            </label>
+
+            <label class="field full">
+              <span class="label-row">场景元素质感 <button class="mini-edit" type="button" data-vocab="surfaceTextures">编辑</button></span>
+              <select id="surfaceTexture"></select>
+            </label>
+
+            <label class="field full">
+              <span class="label-row">前景元素 <button class="mini-edit" type="button" data-vocab="foregroundElements">编辑</button></span>
+              <select id="foregroundElement"></select>
+            </label>
+
+            <div id="section-figure" class="form-section full" data-step="04"><span>人物与尺度</span></div>
+
+            <label class="field full">
+              <span class="label-row">人物大小 <button class="mini-edit" type="button" data-vocab="figureScales">编辑</button></span>
+              <select id="figureScale"></select>
+            </label>
+
+            <label class="field full">
+              <span class="label-row">人物朝向 <button class="mini-edit" type="button" data-vocab="figureOrientations">编辑</button></span>
+              <select id="figureOrientation"></select>
+            </label>
+
+            <div id="section-light" class="form-section full" data-step="05"><span>光线与情绪</span></div>
+
+            <label class="field full">
+              <span class="label-row">光线天气 <button class="mini-edit" type="button" data-vocab="lightingWeather">编辑</button></span>
+              <select id="lightingWeather"></select>
+            </label>
+
+            <label class="field full">
+              <span class="label-row">天空 / 宇宙背景 <button class="mini-edit" type="button" data-vocab="skyCosmos">编辑</button></span>
+              <select id="skyCosmos"></select>
+            </label>
+
+            <fieldset class="mood-box full">
+              <legend class="label-row">情绪氛围 <button class="mini-edit" type="button" data-vocab="moodTags">编辑</button></legend>
+              <div id="moodTags" class="checkbox-grid"></div>
+            </fieldset>
+
+            <div id="section-output" class="form-section full" data-step="06"><span>输出</span></div>
+
+            <label class="field">
+              <span>模型预设</span>
+              <select id="modelPreset">
+                <option value="chatgpt">ChatGPT 图片生成</option>
+                <option value="midjourney">Midjourney</option>
+                <option value="sdxl">SDXL/FLUX</option>
+              </select>
+            </label>
+
+            <label class="toggle">
+              <input id="includeNegative" type="checkbox" checked />
+              <span>包含负面提示词</span>
+            </label>
+
+            <div class="button-row full">
+              <button id="randomButton" class="button secondary" type="button">随机生成</button>
+              <button id="copyButton" class="button primary" type="button">复制 prompt</button>
+              <button id="resetButton" class="button ghost" type="button">重置当前配置</button>
+            </div>
+
+            <div class="button-row full">
+              <button id="batchButton" class="button secondary" type="button">生成 10 条变体</button>
+              <button id="downloadButton" class="button ghost" type="button">导出 .txt</button>
+              <button class="button ghost mini-edit-wide" type="button" data-vocab="negativePrompt">编辑负面词</button>
+            </div>
+
+            <div class="button-row full">
+              <button id="exportConfigButton" class="button ghost" type="button">导出配置 JSON</button>
+              <button id="importConfigButton" class="button ghost" type="button">导入配置 JSON</button>
+              <button id="restoreDefaultsButton" class="button danger" type="button">恢复默认词库</button>
+            </div>
+
+            <input id="importConfigInput" type="file" accept="application/json,.json" hidden />
+            <p id="copyStatus" class="copy-status full" role="status" aria-live="polite"></p>
+          </form>
+        </section>
+
+        <section class="panel output-panel" aria-label="Prompt 输出区">
+          <div class="panel-heading output-heading">
+            <div>
+              <p class="section-kicker">Resolved Prompt</p>
+              <h2>结构化提示词</h2>
+            </div>
+            <span id="modelBadge" class="badge">ChatGPT 图片生成</span>
+          </div>
+
+          <article class="prompt-block">
+            <h3>正向 prompt</h3>
+            <pre id="positivePrompt"></pre>
+          </article>
+
+          <article id="negativePromptBlock" class="prompt-block">
+            <h3>负面 prompt</h3>
+            <pre id="negativePrompt"></pre>
+          </article>
+
+          <article class="summary-block">
+            <h3>当前约束摘要</h3>
+            <dl id="constraintSummary"></dl>
+          </article>
+
+          <article class="summary-block">
+            <h3>结构分解预览</h3>
+            <div id="structurePreview" class="preview-grid"></div>
+          </article>
+
+          <article class="batch-block">
+            <div class="batch-heading">
+              <h3>10 条变体</h3>
+              <span id="batchCount">未生成</span>
+            </div>
+            <div id="batchList" class="batch-list"></div>
+          </article>
+        </section>
+      </main>
+
+      <footer class="footer-note">构图先行：比例、体块、人物、引导线与场景互相约束。</footer>
+    </div>
+
+    <dialog id="vocabModal" class="vocab-modal">
+      <form method="dialog" class="modal-shell">
+        <header class="modal-header">
+          <div>
+            <p class="section-kicker">Vocabulary Editor</p>
+            <h2 id="modalTitle">编辑词库</h2>
+          </div>
+          <button id="closeModalButton" class="icon-button" type="button" aria-label="关闭">×</button>
+        </header>
+        <p id="modalHelp" class="modal-help"></p>
+        <div id="modalList" class="modal-list"></div>
+        <footer class="modal-actions">
+          <button id="addVocabItemButton" class="button secondary" type="button">新增条目</button>
+          <button id="saveVocabButton" class="button primary" type="button">保存词库</button>
+          <button id="cancelVocabButton" class="button ghost" type="button">取消</button>
+        </footer>
+      </form>
+    </dialog>
+  </body>
+</html>
