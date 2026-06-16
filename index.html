@@ -13,7 +13,7 @@
         <div>
           <p class="eyebrow">Beyond the Light Cone</p>
           <h1><span class="title-main">光锥之外</span></h1>
-          <p class="subtitle">先确定画面结构，再生成后人类巨构、微小人物与世界边界感之间相互约束的图像提示词。</p>
+          <p class="subtitle">先定情绪基底，再让巨构、场景、光线、阴影与人物尺度互相咬合，生成更稳定的后人类巨构图像提示词。</p>
         </div>
         <div class="horizon-mark" aria-hidden="true">
           <span></span>
@@ -26,33 +26,60 @@
         <nav class="step-rail" aria-label="构图工作流导航">
           <p class="section-kicker">Build Steps</p>
           <a href="#workflowDetails"><span>00</span><strong>使用说明</strong></a>
-          <a href="#section-composition"><span>01</span><strong>画面结构</strong></a>
-          <a href="#section-structure"><span>02</span><strong>巨构主体</strong></a>
-          <a href="#section-scene"><span>03</span><strong>场景基底</strong></a>
-          <a href="#section-figure"><span>04</span><strong>人物与尺度</strong></a>
-          <a href="#section-light"><span>05</span><strong>光线与情绪</strong></a>
-          <a href="#section-output"><span>06</span><strong>输出</strong></a>
+          <a href="#section-mood"><span>01</span><strong>情绪基底</strong></a>
+          <a href="#section-composition"><span>02</span><strong>画面结构</strong></a>
+          <a href="#section-structure"><span>03</span><strong>巨构主体</strong></a>
+          <a href="#section-scene"><span>04</span><strong>场景与地貌</strong></a>
+          <a href="#section-light"><span>05</span><strong>光线与环境</strong></a>
+          <a href="#section-figure"><span>06</span><strong>人物与尺度</strong></a>
+          <a href="#section-preview"><span>07</span><strong>构图预览</strong></a>
+          <a href="#section-output"><span>08</span><strong>输出</strong></a>
         </nav>
 
-        <section class="panel control-panel" aria-label="巨构构图控制台">
+        <section class="panel control-panel" aria-label="光锥之外 v2 控制面板">
           <div class="panel-heading">
-            <p class="section-kicker">Composition Console</p>
+            <p class="section-kicker">Composition Console v2</p>
             <h2>控制面板</h2>
           </div>
 
           <details id="workflowDetails" class="workflow-box" open>
             <summary>使用说明 / Workflow</summary>
             <ol>
-              <li><strong>选比例</strong><span>确定画幅与基础张力。</span></li>
-              <li><strong>定构图</strong><span>让位置、路径和人物互相约束。</span></li>
-              <li><strong>塑巨构</strong><span>选择主体体块与画面重量。</span></li>
-              <li><strong>铺场景</strong><span>限定基底、质感、人物和光线。</span></li>
-              <li><strong>取文本</strong><span>复制、导出或生成变体。</span></li>
+              <li><strong>定情绪</strong><span>先选择情绪基底，系统给出场景、光线、天气、阴影和构图推荐。</span></li>
+              <li><strong>定画面</strong><span>选择比例、构图、地平线压力、引导线和人物位置。</span></li>
+              <li><strong>塑巨构</strong><span>明确巨构遮挡画面、压住天空、视觉重量和阴影范围。</span></li>
+              <li><strong>铺地貌</strong><span>选择场景域、自然地貌、地表质感和前景元素。</span></li>
+              <li><strong>锁光影</strong><span>分别选择天气/空气、光源方向、天空背景和巨构影子模式。</span></li>
+              <li><strong>放尺度</strong><span>用极小人物、车辆、动物或无人物尺度参照证明巨构比例。</span></li>
+              <li><strong>看预览</strong><span>用 SVG 草图检查地平线、体块、引导线、人物点位和阴影范围。</span></li>
+              <li><strong>取文本</strong><span>复制 prompt、生成变体、导出 txt 或配置 JSON。</span></li>
             </ol>
           </details>
 
           <form id="promptForm" class="form-grid">
-            <div id="section-composition" class="form-section full" data-step="01"><span>画面结构</span></div>
+            <div id="section-mood" class="form-section full" data-step="01"><span>情绪基底</span></div>
+            <p class="section-note full">先决定画面的情绪底色。系统会根据它推荐合适的构图、巨构、场景、天气、光线、天空和阴影。</p>
+
+            <label class="field full">
+              <span class="label-row">情绪基底 <button class="mini-edit" type="button" data-vocab="moodBases">编辑</button></span>
+              <select id="moodBase"></select>
+            </label>
+
+            <label class="toggle full">
+              <input id="allowNonRecommended" type="checkbox" checked />
+              <span>允许非推荐选择，但显示冲突提示</span>
+            </label>
+
+            <div class="button-row full">
+              <button id="applyMoodButton" class="button primary" type="button">应用推荐方案</button>
+              <button id="moodRandomButton" class="button secondary" type="button">按当前情绪随机</button>
+              <button id="randomButton" class="button ghost" type="button">随机生成</button>
+            </div>
+
+            <article id="moodCard" class="mood-card full"></article>
+
+            <div id="section-composition" class="form-section full" data-step="02"><span>画面结构</span></div>
+            <p class="section-note full">决定画幅、地平线、巨构入画方式、路径引导线和人物点位。</p>
 
             <label class="field">
               <span class="label-row">画面比例 <button class="mini-edit" type="button" data-vocab="aspectRatios">编辑</button></span>
@@ -72,8 +99,6 @@
               <select id="compositionScheme"></select>
             </label>
 
-            <div id="constraintHint" class="constraint-hint full"></div>
-
             <label class="field full">
               <span class="label-row">巨构位置 <button class="mini-edit" type="button" data-vocab="structurePositions">编辑</button></span>
               <select id="structurePosition"></select>
@@ -89,7 +114,18 @@
               <select id="figurePlacement"></select>
             </label>
 
-            <div id="section-structure" class="form-section full" data-step="02"><span>巨构主体</span></div>
+            <label class="field range-field full">
+              <span>地平线压迫 <output id="horizonPressureValue">72%</output></span>
+              <input id="horizonPressure" type="range" min="0" max="100" value="72" />
+            </label>
+
+            <div id="section-structure" class="form-section full" data-step="03"><span>巨构主体</span></div>
+            <p class="section-note full">巨构必须是可见的实体体块：轮廓、材质、遮挡天空方式、接触关系和阴影都要成立。</p>
+
+            <label class="field full">
+              <span class="label-row">巨构族 <button class="mini-edit" type="button" data-vocab="megastructureFamilies">编辑</button></span>
+              <select id="megastructureFamily"></select>
+            </label>
 
             <label class="field full">
               <span class="label-row">巨构类型 <button class="mini-edit" type="button" data-vocab="megastructureTypes">编辑</button></span>
@@ -97,22 +133,41 @@
             </label>
 
             <label class="field range-field">
-              <span>巨构占比 <output id="megastructureShareValue">75%</output></span>
-              <input id="megastructureShare" type="range" min="45" max="92" value="75" />
+              <span>实际遮挡画面 <output id="screenCoverageValue">58%</output></span>
+              <input id="screenCoverage" type="range" min="10" max="90" value="58" />
             </label>
 
             <label class="field range-field">
-              <span>地表 / 场景占比 <output id="groundShareValue">18%</output></span>
-              <input id="groundShare" type="range" min="5" max="45" value="18" />
+              <span>视觉重量 <output id="visualWeightValue">85%</output></span>
+              <input id="visualWeight" type="range" min="10" max="100" value="85" />
             </label>
 
-            <p id="figureShareHint" class="micro-copy full"></p>
+            <label class="field range-field">
+              <span>天空遮挡 <output id="skyOcclusionValue">45%</output></span>
+              <input id="skyOcclusion" type="range" min="0" max="90" value="45" />
+            </label>
 
-            <div id="section-scene" class="form-section full" data-step="03"><span>场景基底</span></div>
+            <label class="field range-field">
+              <span>阴影覆盖 <output id="shadowFootprintValue">50%</output></span>
+              <input id="shadowFootprint" type="range" min="0" max="90" value="50" />
+            </label>
 
-            <label class="field full">
+            <div id="section-scene" class="form-section full" data-step="04"><span>场景与地貌</span></div>
+            <p class="section-note full">场景不是背景贴图，而是决定天气、天空、光线是否合理的物理域。</p>
+
+            <label class="field">
+              <span class="label-row">场景域 <button class="mini-edit" type="button" data-vocab="sceneDomains">编辑</button></span>
+              <select id="sceneDomain"></select>
+            </label>
+
+            <label class="field">
               <span class="label-row">场景基底 <button class="mini-edit" type="button" data-vocab="sceneBases">编辑</button></span>
               <select id="sceneBase"></select>
+            </label>
+
+            <label class="field range-field full">
+              <span>地表 / 场景占比 <output id="groundShareValue">22%</output></span>
+              <input id="groundShare" type="range" min="10" max="40" value="22" />
             </label>
 
             <label class="field full">
@@ -125,7 +180,33 @@
               <select id="foregroundElement"></select>
             </label>
 
-            <div id="section-figure" class="form-section full" data-step="04"><span>人物与尺度</span></div>
+            <div id="section-light" class="form-section full" data-step="05"><span>光线与环境</span></div>
+            <p class="section-note full">天气、光源、天空和阴影必须服从场景域，系统会自动过滤不合理组合。</p>
+
+            <label class="field full">
+              <span class="label-row">天气 / 空气 <button class="mini-edit" type="button" data-vocab="weatherStates">编辑</button></span>
+              <select id="weatherState"></select>
+            </label>
+
+            <label class="field full">
+              <span class="label-row">光源方向 <button class="mini-edit" type="button" data-vocab="lightingSetups">编辑</button></span>
+              <select id="lightingSetup"></select>
+            </label>
+
+            <label class="field full">
+              <span class="label-row">天空 / 宇宙背景 <button class="mini-edit" type="button" data-vocab="skyCosmos">编辑</button></span>
+              <select id="skyCosmos"></select>
+            </label>
+
+            <label class="field full">
+              <span class="label-row">巨构阴影 <button class="mini-edit" type="button" data-vocab="shadowModes">编辑</button></span>
+              <select id="shadowMode"></select>
+            </label>
+
+            <div id="environmentHint" class="constraint-hint full"></div>
+
+            <div id="section-figure" class="form-section full" data-step="06"><span>人物与尺度</span></div>
+            <p class="section-note full">人物或尺度参照不是主角，只用来证明巨构巨大。</p>
 
             <label class="field full">
               <span class="label-row">人物大小 <button class="mini-edit" type="button" data-vocab="figureScales">编辑</button></span>
@@ -137,24 +218,20 @@
               <select id="figureOrientation"></select>
             </label>
 
-            <div id="section-light" class="form-section full" data-step="05"><span>光线与情绪</span></div>
-
             <label class="field full">
-              <span class="label-row">光线天气 <button class="mini-edit" type="button" data-vocab="lightingWeather">编辑</button></span>
-              <select id="lightingWeather"></select>
-            </label>
-
-            <label class="field full">
-              <span class="label-row">天空 / 宇宙背景 <button class="mini-edit" type="button" data-vocab="skyCosmos">编辑</button></span>
-              <select id="skyCosmos"></select>
+              <span class="label-row">尺度参照 <button class="mini-edit" type="button" data-vocab="scaleReferences">编辑</button></span>
+              <select id="scaleReference"></select>
             </label>
 
             <fieldset class="mood-box full">
-              <legend class="label-row">情绪氛围 <button class="mini-edit" type="button" data-vocab="moodTags">编辑</button></legend>
-              <div id="moodTags" class="checkbox-grid"></div>
+              <legend class="label-row">辅助情绪 <button class="mini-edit" type="button" data-vocab="secondaryMoods">编辑</button></legend>
+              <div id="secondaryMoods" class="checkbox-grid"></div>
             </fieldset>
 
-            <div id="section-output" class="form-section full" data-step="06"><span>输出</span></div>
+            <div id="section-preview" class="form-section full" data-step="07"><span>构图预览</span></div>
+            <p class="section-note full">右侧构图雷达会显示画幅、地平线、巨构体块、引导线、人物点位、天空遮挡和阴影范围。</p>
+
+            <div id="section-output" class="form-section full" data-step="08"><span>输出</span></div>
 
             <label class="field">
               <span>模型预设</span>
@@ -171,21 +248,20 @@
             </label>
 
             <div class="button-row full">
-              <button id="randomButton" class="button secondary" type="button">随机生成</button>
               <button id="copyButton" class="button primary" type="button">复制 prompt</button>
               <button id="resetButton" class="button ghost" type="button">重置当前配置</button>
+              <button id="batchButton" class="button secondary" type="button">生成 10 条变体</button>
             </div>
 
             <div class="button-row full">
-              <button id="batchButton" class="button secondary" type="button">生成 10 条变体</button>
               <button id="downloadButton" class="button ghost" type="button">导出 .txt</button>
               <button class="button ghost mini-edit-wide" type="button" data-vocab="negativePrompt">编辑负面词</button>
+              <button id="restoreDefaultsButton" class="button danger" type="button">恢复默认词库</button>
             </div>
 
             <div class="button-row full">
               <button id="exportConfigButton" class="button ghost" type="button">导出配置 JSON</button>
               <button id="importConfigButton" class="button ghost" type="button">导入配置 JSON</button>
-              <button id="restoreDefaultsButton" class="button danger" type="button">恢复默认词库</button>
             </div>
 
             <input id="importConfigInput" type="file" accept="application/json,.json" hidden />
@@ -217,9 +293,13 @@
             <dl id="constraintSummary"></dl>
           </article>
 
-          <article class="summary-block">
-            <h3>结构分解预览</h3>
-            <div id="structurePreview" class="preview-grid"></div>
+          <article class="summary-block preview-shell">
+            <div class="batch-heading">
+              <h3>构图雷达</h3>
+              <span>SVG preview</span>
+            </div>
+            <p class="preview-help">这是 prompt 的分镜草图，不是最终图像。</p>
+            <div id="compositionPreview" class="composition-preview"></div>
           </article>
 
           <article class="batch-block">
@@ -232,7 +312,7 @@
         </section>
       </main>
 
-      <footer class="footer-note">构图先行：比例、体块、人物、引导线与场景互相约束。</footer>
+      <footer class="footer-note">情绪先行：场景域、光线、阴影和尺度互相咬合。</footer>
     </div>
 
     <dialog id="vocabModal" class="vocab-modal">
@@ -247,8 +327,8 @@
         <p id="modalHelp" class="modal-help"></p>
         <div id="modalList" class="modal-list"></div>
         <footer class="modal-actions">
-          <button id="addVocabItemButton" class="button secondary" type="button">新增条目</button>
-          <button id="saveVocabButton" class="button primary" type="button">保存词库</button>
+          <button id="addVocabItemButton" class="button secondary" type="button">新增词条</button>
+          <button id="saveVocabButton" class="button primary" type="button">保存词条</button>
           <button id="cancelVocabButton" class="button ghost" type="button">取消</button>
         </footer>
       </form>

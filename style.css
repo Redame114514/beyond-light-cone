@@ -292,6 +292,16 @@ h1::after {
   overflow-wrap: anywhere;
 }
 
+.section-note {
+  margin: -2px 0 0;
+  border-left: 3px solid rgba(216, 154, 131, 0.5);
+  padding: 8px 10px;
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.65;
+  background: rgba(255, 255, 255, 0.32);
+}
+
 .panel {
   border: 1px solid rgba(80, 96, 92, 0.18);
   border-radius: var(--radius);
@@ -592,6 +602,51 @@ input[type="range"]::-moz-range-thumb {
     linear-gradient(180deg, rgba(255, 255, 255, 0.54), rgba(251, 248, 239, 0.62));
 }
 
+.mood-card {
+  display: grid;
+  gap: 10px;
+  border: 1px solid rgba(80, 96, 92, 0.16);
+  border-radius: var(--radius);
+  padding: 13px;
+  background:
+    linear-gradient(135deg, rgba(221, 233, 235, 0.72), rgba(255, 255, 255, 0.48)),
+    rgba(251, 248, 239, 0.74);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.mood-card h3 {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--display);
+  font-size: 1.24rem;
+  font-weight: 500;
+}
+
+.mood-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.7;
+}
+
+.mood-card dl {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 7px 10px;
+  margin: 0;
+  font-size: 0.78rem;
+}
+
+.mood-card dt {
+  color: var(--dim);
+}
+
+.mood-card dd {
+  margin: 0;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+
 .checkbox-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -850,6 +905,95 @@ pre {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
   padding: 12px;
+}
+
+.preview-shell {
+  overflow: hidden;
+}
+
+.preview-help {
+  margin: 0;
+  padding: 10px 14px 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.composition-preview {
+  padding: 12px;
+}
+
+.composition-preview svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 7px;
+  background:
+    linear-gradient(180deg, rgba(48, 60, 58, 0.95), rgba(34, 42, 42, 0.98)),
+    #26302f;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.svg-frame {
+  fill: rgba(251, 248, 239, 0.03);
+  stroke: rgba(251, 248, 239, 0.55);
+  stroke-width: 1.2;
+}
+
+.svg-thirds line {
+  stroke: rgba(251, 248, 239, 0.12);
+  stroke-width: 0.8;
+}
+
+.svg-ground {
+  fill: rgba(138, 168, 137, 0.16);
+}
+
+.svg-horizon {
+  stroke: rgba(216, 154, 131, 0.88);
+  stroke-width: 1.3;
+}
+
+.svg-sky-occlusion {
+  fill: rgba(20, 28, 28, 0.28);
+}
+
+.svg-shadow {
+  fill: rgba(5, 8, 8, 0.34);
+}
+
+.svg-shadow.hard {
+  fill: rgba(0, 0, 0, 0.48);
+}
+
+.svg-guide {
+  fill: none;
+  stroke: rgba(216, 154, 131, 0.85);
+  stroke-width: 1.6;
+  stroke-dasharray: 6 5;
+}
+
+.svg-mass {
+  fill: rgba(200, 195, 184, 0.68);
+  stroke: rgba(251, 248, 239, 0.72);
+  stroke-width: 1;
+}
+
+.svg-mass-ring {
+  fill: none;
+  stroke: rgba(200, 195, 184, 0.82);
+  stroke-width: 16;
+}
+
+.svg-figure {
+  fill: var(--coral);
+  stroke: rgba(251, 248, 239, 0.95);
+  stroke-width: 1.2;
+}
+
+.svg-labels text {
+  fill: rgba(251, 248, 239, 0.76);
+  font-family: var(--mono);
+  font-size: 6px;
 }
 
 .preview-card {
